@@ -1,0 +1,188 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.gap-2 {
+  gap: 2px;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.kanbanSection {
+  background-color: #f4f5f8;
+  height: 100%;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.displ_ddn_Content {
+  background-color: #f8f9fb;
+  width: fit-content;
+  position: absolute;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #dedede;
+  box-shadow: 3px 3px 20px 1px #eee;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.displ_ddn_Content div {
+  padding: 2px;
+  align-items: baseline;
+  gap: 40px;
+  color: #8d8e8e;
+}
+
+.display_ddn {
+  position: relative;
+  margin: 10px;
+}
+
+.display_ddn_btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 2px #eee;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #8d8e8e;
+  font-weight: bold;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* width: 25%; */
+  margin: 10px 0;
+  color: #6a6e75;
+  cursor: grab;
+  word-wrap: break-word;
+}
+
+.card .title {
+  color: #26282e;
+  font-weight: bold;
+  text-align: left;
+  margin: 0px 0 20px 0;
+}
+
+.card img {
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+}
+
+.card .outlined_box {
+  border-radius: 5px;
+  border: 1px solid #eee;
+  padding: 5px 8px;
+}
+
+.card .outlined_box div {
+  border-radius: 5px;
+}
+
+.card .outlined_box span {
+  background-color: #6b6f76;
+  padding: 2px;
+  font-size: 14px;
+  color: #eee;
+}
+
+.card .status {
+  height: 10px;
+  width: 10px;
+  background-color: #ddd;
+}
+
+.kanban_board {
+}
+
+.kanban-column {
+  /* width: 25%; */
+  width: 100%;
+}
+
+.kanban-card:active {
+  cursor: grabbing;
+}
+
+.priority_col_header,
+.priority_col_header span {
+  color: #6c7077;
+  font-size: 16px;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  width: 100px;
+}
+
+.custom-select::after {
+  content: "▼"; /* Unicode character for a downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 10px;
+}
+
+@media (min-width: 768px) {
+  .kanban-column {
+    width: calc(33.33% - 20px);
+  }
+}
