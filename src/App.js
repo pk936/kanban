@@ -32,7 +32,8 @@ function App() {
         return { ...ticket, userName: user ? user.name : "Unknown User" };
       });
 
-      const { groupBy, sortBy } = JSON.parse(localStorage.getItem("view"));
+      const { groupBy, sortBy } =
+        JSON.parse(localStorage.getItem("view")) || view;
 
       initialResponseData.current = ticketsWithUsername;
       const groupedByStatusData = groupSortedTickets(

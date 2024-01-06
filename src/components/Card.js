@@ -13,11 +13,11 @@ export default function Card({ onDragStart, task, type }) {
       </div>
       <h5 className="title">{title}</h5>
       <div className="flex gap-10">
-        <div className="outlined_box">
+        {/* <div className="outlined_box">
           <div>
             <span className="material-icons">priority_high</span>
           </div>
-        </div>
+        </div> */}
         <div className="outlined_box flex align-center gap-2">
           <span className="material-icons">circle</span>
           <small>{tag?.join(" ,")}</small>
