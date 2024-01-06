@@ -73,6 +73,7 @@ function App() {
       groupBy,
       sortBy,
     });
+
     setKanbanData({
       ...kanbanData,
       data: displayData,
@@ -80,7 +81,7 @@ function App() {
   }
 
   function onChangeData(data) {
-    let { groupBy, sortBy } = view;
+    let { sortBy } = view;
     const displayData = sortTicketsInGroups(data, sortBy);
 
     setKanbanData({
@@ -88,7 +89,6 @@ function App() {
       data: displayData,
     });
 
-    console.log(initialResponseData.current, Object.values(data));
     initialResponseData.current = Object.values(data).flat();
   }
 

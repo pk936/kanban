@@ -20,7 +20,7 @@ function sortBy(data, property) {
 export function sortTicketsInGroups(data, property) {
   let obj = {};
   for (const key in data) {
-    if (Object.hasOwnProperty.call(data, key)) {
+    if (data.hasOwnProperty(key)) {
       const element = data[key];
       obj[key] = sortBy(element, property);
     }

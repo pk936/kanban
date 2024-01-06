@@ -34,6 +34,7 @@ const KanbanBoard = ({ tasks, groupBy, onChangeTasks }) => {
     }
   };
 
+  console.log("tasks", tasks);
   for (const key in tasks) {
     if (tasks.hasOwnProperty(key)) {
       const element = tasks[key];
