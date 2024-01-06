@@ -59,6 +59,7 @@ code {
   box-shadow: 3px 3px 20px 1px #eee;
   font-size: 14px;
   margin-top: 10px;
+  z-index: 1;
 }
 
 .displ_ddn_Content div {
@@ -112,16 +113,34 @@ code {
   margin: 0;
 }
 
-img {
-  height: 20px;
-  width: 20px;
+.avatar {
+  height: 15px;
+  width: 15px;
   border-radius: 100%;
+  background: brown;
+  color: #fff;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
+  position: relative;
+}
+
+.avatar .online {
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  position: absolute;
+  background: #ccc;
+  bottom: 0px;
+  right: 0px;
 }
 
 .card .outlined_box {
   border-radius: 5px;
   border: 1px solid #eee;
-  padding: 5px 8px;
+  padding: 2px 5px;
 }
 
 .card .outlined_box div {
@@ -132,7 +151,11 @@ img {
   /* background-color: #6b6f76; */
   /* padding: 2px; */
   font-size: 14px;
-  color: #eee;
+  color: #ddd;
+}
+
+.card .outlined_box .tags {
+  font-size: 10px;
 }
 
 .card .status {

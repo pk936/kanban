@@ -48,6 +48,7 @@ const KanbanBoard = ({ tasks, groupBy, onChangeTasks }) => {
             label={key}
             totalTasks={element.length}
             groupBy={groupBy}
+            userName={element[0].userName}
           />
           {element.map((task) => (
             <Card
@@ -55,6 +56,7 @@ const KanbanBoard = ({ tasks, groupBy, onChangeTasks }) => {
               type={key}
               task={task}
               onDragStart={handleDragStart}
+              groupBy={groupBy}
             />
           ))}
         </div>

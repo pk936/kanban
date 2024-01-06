@@ -1,10 +1,11 @@
+import Avatar from "./Avatar";
 import ColumnHeaderMoreOptions from "./ColumnHeaderMoreOptions";
 
-export default function ColumnHeaderByUser({ label, totalTasks }) {
+export default function ColumnHeaderByUser({ label, userName, totalTasks }) {
   return (
     <div className="flex justify-between align-center">
       <div className="flex gap-10 align-center">
-        <img src="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg" />
+        <Avatar userName={userName} />
 
         <h5>
           {label}&nbsp;&nbsp;&nbsp;

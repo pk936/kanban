@@ -1,5 +1,32 @@
-export default function Card({ onDragStart, task, type }) {
-  const { id, title, tag, priority } = task;
+import Avatar from "./Avatar";
+
+export default function Card({ groupBy, onDragStart, task, type }) {
+  const { id, title, tag, priority, userName } = task;
+
+  let icon = null;
+  let color = "#6c7077";
+
+  switch (+priority) {
+    case 0:
+      icon = "more_horiz";
+      break;
+    case 1:
+      color = "orange";
+      icon = "report";
+      break;
+    case 2:
+      color = "#777";
+      icon = "signal_cellular_4_bar";
+      break;
+    case 3:
+      color = "#ddd";
+      icon = "network_cell";
+      break;
+    case 4:
+      color = "#777";
+      icon = "signal_cellular_null";
+      break;
+  }
 
   return (
     <div
@@ -9,19 +36,24 @@ export default function Card({ onDragStart, task, type }) {
     >
       <div className="flex justify-between align-center">
         <h5>{id}</h5>
-        <img src="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg" />
+        {groupBy !== "userName" && <Avatar userName={userName} />}
       </div>
       <h5 className="title">{title}</h5>
-      <div className="flex gap-10">
-        {/* <div className="outlined_box">
-          <div>
-            <span className="material-icons">priority_high</span>
+      <div className="flex gap-2">
+        {groupBy !== "priority" && (
+          <div className="outlined_box">
+            <span className="material-icons" style={{ color }}>
+              {icon}
+            </span>
           </div>
-        </div> */}
-        <div className="outlined_box flex align-center gap-2">
-          <span className="material-icons">circle</span>
-          <small>{tag?.join(" ,")}</small>
-        </div>
+        )}
+
+        {tag.length > 0 && (
+          <div className="outlined_box flex align-center gap-2">
+            <span className="material-icons">circle</span>
+            <small className="tags">{tag?.join(" ,")}</small>
+          </div>
+        )}
       </div>
     </div>
   );
