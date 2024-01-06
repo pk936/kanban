@@ -7,7 +7,7 @@ export default function ColumnHeaderByUser({ label, userName, totalTasks }) {
       <div className="flex gap-10 align-center">
         <Avatar userName={userName} />
 
-        <h5>
+        <h5 className="text-wrap-no">
           {label}&nbsp;&nbsp;&nbsp;
           <label style={{ color: "#aaa" }}>{totalTasks}</label>
         </h5>

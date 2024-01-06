@@ -48,7 +48,7 @@ const KanbanBoard = ({ tasks, groupBy, onChangeTasks }) => {
             label={key}
             totalTasks={element.length}
             groupBy={groupBy}
-            userName={element[0].userName}
+            userName={element[0]?.userName}
           />
           {element.map((task) => (
             <Card

@@ -1,4 +1,5 @@
 export default function Avatar({ userName }) {
+  if (!userName) return null;
   const arr = userName.split(" ");
   const initials = arr
     .map((word) => word[0])

@@ -35,10 +35,10 @@ export default function ColumnHeaderByPriority({ id, totalTasks }) {
   return (
     <div className="flex justify-between align-center">
       <div className="flex gap-10 align-center">
-        <span class="material-icons" style={{ color }}>
+        <span className="material-icons" style={{ color }}>
           {icon}
         </span>
-        <h5>
+        <h5 className="text-wrap-no">
           {label}&nbsp;&nbsp;&nbsp;
           <label style={{ color: "#aaa" }}>{totalTasks}</label>
         </h5>

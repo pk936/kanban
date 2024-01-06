@@ -25,9 +25,9 @@ export default function DisplayDropDrown({ value, onChange }) {
   return (
     <div className="display_ddn">
       <button className="display_ddn_btn" onClick={toggleDDN}>
-        <span class="material-icons">tune</span>
-        <span>Display</span>
-        <span class="material-icons">expand_more</span>
+        <span className="material-icons">tune</span>
+        <p>Display</p>
+        <span className="material-icons">expand_more</span>
       </button>
       <div ref={myDivRef}>
         <DisplayDDNContent show={openDdn} value={value} onChange={onChange} />

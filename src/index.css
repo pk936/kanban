@@ -40,6 +40,10 @@ code {
   flex-wrap: wrap;
 }
 
+.text-wrap-no {
+  text-wrap: nowrap;
+}
+
 .kanbanSection {
   background-color: #f4f5f8;
   height: 100%;
@@ -83,8 +87,17 @@ code {
   cursor: pointer;
   background-color: #fff;
   border-radius: 5px;
-  color: #8d8e8e;
-  font-weight: bold;
+  color: #585c63;
+  font-weight: 500;
+}
+
+.display_ddn_btn span {
+  font-size: 16px;
+}
+
+.display_ddn_btn * {
+  font-size: 14px;
+  margin: 5px;
 }
 
 .card {
