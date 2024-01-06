@@ -12,6 +12,8 @@ function App() {
     groupBy: "status",
     sortBy: "priority",
   });
+  const [columns, setColumns] = useState({});
+
   const initialResponseData = useRef();
 
   async function fetchData() {
@@ -34,6 +36,14 @@ function App() {
         return { ...ticket, userName: user ? user.name : "Unknown User" };
       });
 
+      const cols = {
+        status: getColumnLabels(ticketsWithUsername, "status"),
+        userName: getColumnLabels(ticketsWithUsername, "userName"),
+        priority: getColumnLabels(ticketsWithUsername, "priority"),
+      };
+
+      localStorage.setItem("columns", JSON.stringify(cols));
+      setColumns(cols);
       setData(ticketsWithUsername);
     } catch (error) {
       console.log(error);
@@ -41,14 +51,23 @@ function App() {
     }
   }
 
+  // fetch all column names
+  function getColumnLabels(array, property) {
+    const uniqueValues = new Set();
+    array.forEach((item) => uniqueValues.add(item[property]));
+    return [...uniqueValues];
+  }
+
   // set final data from api call or localstoraage
   function setData(data) {
     const { groupBy, sortBy } =
       JSON.parse(localStorage.getItem("view")) || view;
+    let cols = JSON.parse(localStorage.getItem("columns"));
 
     initialResponseData.current = data;
     const groupedByStatusData = groupSortedTickets(data, groupBy, sortBy);
 
+    setColumns(cols);
     setView({ groupBy, sortBy });
     setKanbanData({
       data: groupedByStatusData,
@@ -128,6 +147,7 @@ function App() {
           tasks={data}
           groupBy={groupBy}
           onChangeTasks={onChangeData}
+          columns={columns}
         />
       </div>
     </div>
