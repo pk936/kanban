@@ -34,7 +34,6 @@ const KanbanBoard = ({ tasks, groupBy, onChangeTasks }) => {
     }
   };
 
-  console.log("tasks", tasks);
   for (const key in tasks) {
     if (tasks.hasOwnProperty(key)) {
       const element = tasks[key];
@@ -45,7 +44,11 @@ const KanbanBoard = ({ tasks, groupBy, onChangeTasks }) => {
           onDragOver={(e) => handleDragOver(e)}
           onDrop={(e) => handleDrop(e, key)}
         >
-          <ColumnConfigHeader label={key} />
+          <ColumnConfigHeader
+            label={key}
+            totalTasks={element.length}
+            groupBy={groupBy}
+          />
           {element.map((task) => (
             <Card
               key={task.id}

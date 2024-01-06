@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DisplayDDNContent from "./DisplayDDNContent";
 
 export default function DisplayDropDrown({ value, onChange }) {
   const [openDdn, setOpenDdn] = useState(false);
+  const myDivRef = useRef(null);
 
   function toggleDDN() {
     setOpenDdn(!openDdn);
   }
+
+  const handleClickOutside = (e) => {
+    if (myDivRef.current && !myDivRef.current.contains(e.target)) {
+      setOpenDdn(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="display_ddn">
@@ -15,7 +29,9 @@ export default function DisplayDropDrown({ value, onChange }) {
         <span>Display</span>
         <span class="material-icons">expand_more</span>
       </button>
-      <DisplayDDNContent show={openDdn} value={value} onChange={onChange} />
+      <div ref={myDivRef}>
+        <DisplayDDNContent show={openDdn} value={value} onChange={onChange} />
+      </div>
     </div>
   );
 }

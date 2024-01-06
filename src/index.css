@@ -112,9 +112,9 @@ code {
   margin: 0;
 }
 
-.card img {
-  height: 30px;
-  width: 30px;
+img {
+  height: 20px;
+  width: 20px;
   border-radius: 100%;
 }
 

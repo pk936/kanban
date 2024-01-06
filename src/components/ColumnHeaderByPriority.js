@@ -1,11 +1,47 @@
 import ColumnHeaderMoreOptions from "./ColumnHeaderMoreOptions";
 
-export default function ColumnHeaderByPriority(params) {
+export default function ColumnHeaderByPriority({ id, totalTasks }) {
+  let icon = null;
+  let color = "#6c7077";
+  let label = "";
+
+  switch (+id) {
+    case 0:
+      icon = "more_horiz";
+      label = "No Priority";
+      break;
+    case 1:
+      color = "orange";
+      icon = "report";
+      label = "Urgent";
+      break;
+    case 2:
+      color = "#777";
+      icon = "signal_cellular_4_bar";
+      label = "High";
+      break;
+    case 3:
+      color = "#ddd";
+      icon = "network_cell";
+      label = "Medium";
+      break;
+    case 4:
+      color = "#777";
+      icon = "signal_cellular_null";
+      label = "Low";
+      break;
+  }
+
   return (
     <div className="flex justify-between align-center">
       <div className="flex gap-10 align-center">
-        <span class="material-icons">more_horiz</span>
-        <h5>No Priority 2</h5>
+        <span class="material-icons" style={{ color }}>
+          {icon}
+        </span>
+        <h5>
+          {label}&nbsp;&nbsp;&nbsp;
+          <label style={{ color: "#aaa" }}>{totalTasks}</label>
+        </h5>
       </div>
       <ColumnHeaderMoreOptions />
     </div>
