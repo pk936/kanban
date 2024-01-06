@@ -1,5 +1,5 @@
 export default function Card({ onDragStart, task, type }) {
-  const { id, title, tag } = task;
+  const { id, title, tag, priority } = task;
 
   return (
     <div
@@ -15,6 +15,7 @@ export default function Card({ onDragStart, task, type }) {
       <div className="flex gap-10">
         <div className="outlined_box">
           <div>
+            {priority}
             <span className="material-icons">priority_high</span>
           </div>
         </div>

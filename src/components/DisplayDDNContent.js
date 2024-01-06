@@ -1,4 +1,4 @@
-export default function DisplayDDNContent({ show, onChange }) {
+export default function DisplayDDNContent({ show, value, onChange }) {
   return (
     <div
       className="displ_ddn_Content"
@@ -7,16 +7,26 @@ export default function DisplayDDNContent({ show, onChange }) {
       <div className="flex justify-between">
         <label>Grouping</label>
         <Dropdown id="groupBy" onChange={onChange}>
-          <option value="status">Status</option>
-          <option value="user">User</option>
-          <option value="priority">Priority</option>
+          <option selected={value === "status"} value="status">
+            Status
+          </option>
+          <option selected={value === "userName"} value="userName">
+            User
+          </option>
+          <option selected={value === "priority"} value="priority">
+            Priority
+          </option>
         </Dropdown>
       </div>
       <div className="flex justify-between">
         <label>Ordering </label>
-        <Dropdown id="orderBy" onChange={onChange}>
-          <option value="priority">Priority</option>
-          <option value="title">Title</option>
+        <Dropdown id="sortBy" onChange={onChange}>
+          <option selected={value === "priority"} value="priority">
+            Priority
+          </option>
+          <option selected={value === "title"} value="title">
+            Title
+          </option>
         </Dropdown>
       </div>
     </div>

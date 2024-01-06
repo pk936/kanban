@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DisplayDDNContent from "./DisplayDDNContent";
 
-export default function DisplayDropDrown({ onChange }) {
+export default function DisplayDropDrown({ value, onChange }) {
   const [openDdn, setOpenDdn] = useState(false);
 
   function toggleDDN() {
@@ -15,7 +15,7 @@ export default function DisplayDropDrown({ onChange }) {
         <span>Display</span>
         <span class="material-icons">expand_more</span>
       </button>
-      <DisplayDDNContent show={openDdn} onChange={onChange} />
+      <DisplayDDNContent show={openDdn} value={value} onChange={onChange} />
     </div>
   );
 }

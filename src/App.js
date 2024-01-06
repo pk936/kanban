@@ -2,13 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import DisplayDropDrown from "./components/DisplayDropDown";
 import KanbanBoard from "./components/KanbanBoard";
-import groupByUser from "./utils/groupByUser";
-import groupByStatus from "./utils/groupByStatus";
-import groupByPriority from "./utils/groupByPriority";
+import { groupSortedTickets } from "./utils";
+
 const initialData = { data: null, error: "", loading: false };
 
 function App() {
   const [kanbanData, setKanbanData] = useState(initialData);
+  const [display, setDisplay] = useState({
+    groupBy: "status",
+    sortBy: "priority",
+  });
   const initialResponseData = useRef();
 
   async function fetchData(params) {
@@ -24,9 +27,19 @@ function App() {
       }
 
       const jsonData = await response.json();
-      initialResponseData.current = jsonData;
+      const ticketsWithUsername = jsonData.tickets.map((ticket) => {
+        const user = jsonData.users.find((user) => user.id === ticket.userId);
+        return { ...ticket, userName: user ? user.name : "Unknown User" };
+      });
+
+      initialResponseData.current = ticketsWithUsername;
+      const groupedByStatusData = groupSortedTickets(
+        ticketsWithUsername,
+        "status"
+      );
+
       setKanbanData({
-        data: groupByStatus(jsonData),
+        data: groupedByStatusData,
         error: "",
         loading: false,
       });
@@ -42,23 +55,19 @@ function App() {
 
   function onChange(e) {
     let displayData;
-    if (e.currentTarget.id === "groupBy") {
-      switch (e.target.value) {
-        case "status":
-          displayData = groupByStatus(initialResponseData.current);
-          break;
-        case "user":
-          displayData = groupByUser(initialResponseData.current);
-          break;
-        case "prioriy":
-          displayData = groupByPriority(initialResponseData.current);
-          break;
-      }
-    } else {
-    }
+    let { groupBy, sortBy } = display;
+    groupBy = e.currentTarget.id === "groupBy" ? e.target.value : groupBy;
+    sortBy = e.currentTarget.id === "sortBy" ? e.target.value : sortBy;
+    displayData = groupSortedTickets(
+      initialResponseData.current,
+      groupBy,
+      sortBy
+    );
 
-    console.log("displayData", displayData);
-
+    setDisplay({
+      groupBy,
+      sortBy,
+    });
     setKanbanData({
       ...kanbanData,
       data: displayData,
@@ -90,7 +99,7 @@ function App() {
 
   return (
     <div className="App">
-      <DisplayDropDrown onChange={onChange} />
+      <DisplayDropDrown value={display} onChange={onChange} />
       <div className="kanbanSection">
         <KanbanBoard tasks={data} onChangeTasks={onChangeData} />
       </div>
