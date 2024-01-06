@@ -53,7 +53,9 @@ const KanbanBoard = ({ tasks, onChangeTasks }) => {
     }
   }
 
-  return <div className="flex justify-around flex-wrap">{columns}</div>;
+  return columns;
+
+  // return <div className="flex justify-around flex-wrap">{columns}</div>;
 };
 
 export default KanbanBoard;

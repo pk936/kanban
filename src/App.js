@@ -8,7 +8,7 @@ const initialData = { data: null, error: "", loading: false };
 
 function App() {
   const [kanbanData, setKanbanData] = useState(initialData);
-  const [display, setDisplay] = useState({
+  const [view, setView] = useState({
     groupBy: "status",
     sortBy: "priority",
   });
@@ -32,12 +32,15 @@ function App() {
         return { ...ticket, userName: user ? user.name : "Unknown User" };
       });
 
+      const { groupBy, sortBy } = JSON.parse(localStorage.getItem("view"));
+
       initialResponseData.current = ticketsWithUsername;
       const groupedByStatusData = groupSortedTickets(
         ticketsWithUsername,
-        "status"
+        groupBy
       );
 
+      setView({ groupBy, sortBy });
       setKanbanData({
         data: groupedByStatusData,
         error: "",
@@ -55,7 +58,7 @@ function App() {
 
   function onChange(e) {
     let displayData;
-    let { groupBy, sortBy } = display;
+    let { groupBy, sortBy } = view;
     groupBy = e.currentTarget.id === "groupBy" ? e.target.value : groupBy;
     sortBy = e.currentTarget.id === "sortBy" ? e.target.value : sortBy;
     displayData = groupSortedTickets(
@@ -64,7 +67,9 @@ function App() {
       sortBy
     );
 
-    setDisplay({
+    localStorage.setItem("view", JSON.stringify({ groupBy, sortBy }));
+
+    setView({
       groupBy,
       sortBy,
     });
@@ -82,6 +87,7 @@ function App() {
   }
 
   const { data, error, loading } = kanbanData;
+  console.log("data", data, error, loading);
 
   if (!data) {
     if (loading) {
@@ -95,11 +101,9 @@ function App() {
     return null;
   }
 
-  console.log("data", data);
-
   return (
     <div className="App">
-      <DisplayDropDrown value={display} onChange={onChange} />
+      <DisplayDropDrown value={view} onChange={onChange} />
       <div className="kanbanSection">
         <KanbanBoard tasks={data} onChangeTasks={onChangeData} />
       </div>
