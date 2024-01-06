@@ -2,7 +2,7 @@ import { useState } from "react";
 import Card from "./Card";
 import ColumnConfigHeader from "./ColumnConfigHeader";
 
-const KanbanBoard = ({ tasks, onChangeTasks }) => {
+const KanbanBoard = ({ tasks, groupBy, onChangeTasks }) => {
   //   const [tasks, setTasks] = useState(data);
   const columns = [];
 
@@ -16,14 +16,19 @@ const KanbanBoard = ({ tasks, onChangeTasks }) => {
   };
 
   const handleDrop = (e, status) => {
+    e.preventDefault();
     const taskString = e.dataTransfer.getData("task");
     const task = JSON.parse(taskString);
     const originalStatus = e.dataTransfer.getData("status");
 
     if (originalStatus !== status) {
-      const updatedTasks = { ...tasks };
-      const index = updatedTasks[originalStatus].indexOf(task);
+      const updatedTasks = JSON.parse(JSON.stringify(tasks));
+      const index = updatedTasks[originalStatus].findIndex(
+        (t) => t.id === task.id
+      );
+
       updatedTasks[originalStatus].splice(index, 1);
+      task[groupBy] = status;
       updatedTasks[status].push(task);
       onChangeTasks(updatedTasks);
     }
@@ -40,9 +45,9 @@ const KanbanBoard = ({ tasks, onChangeTasks }) => {
           onDrop={(e) => handleDrop(e, key)}
         >
           <ColumnConfigHeader label={key} />
-          {element.map((task, index) => (
+          {element.map((task) => (
             <Card
-              key={index}
+              key={task.id}
               type={key}
               task={task}
               onDragStart={handleDragStart}

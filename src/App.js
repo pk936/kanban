@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import DisplayDropDrown from "./components/DisplayDropDown";
 import KanbanBoard from "./components/KanbanBoard";
-import { groupSortedTickets } from "./utils";
+import { groupSortedTickets, sortTicketsInGroups } from "./utils";
 
 const initialData = { data: null, error: "", loading: false };
 
@@ -56,18 +56,18 @@ function App() {
     fetchData();
   }, []);
 
-  function onChange(e) {
+  function onChangeView(e) {
     let displayData;
     let { groupBy, sortBy } = view;
     groupBy = e.currentTarget.id === "groupBy" ? e.target.value : groupBy;
     sortBy = e.currentTarget.id === "sortBy" ? e.target.value : sortBy;
+    localStorage.setItem("view", JSON.stringify({ groupBy, sortBy }));
+
     displayData = groupSortedTickets(
       initialResponseData.current,
       groupBy,
       sortBy
     );
-
-    localStorage.setItem("view", JSON.stringify({ groupBy, sortBy }));
 
     setView({
       groupBy,
@@ -80,14 +80,20 @@ function App() {
   }
 
   function onChangeData(data) {
+    let { groupBy, sortBy } = view;
+    const displayData = sortTicketsInGroups(data, sortBy);
+
     setKanbanData({
       ...kanbanData,
-      data,
+      data: displayData,
     });
+
+    console.log(initialResponseData.current, Object.values(data));
+    initialResponseData.current = Object.values(data).flat();
   }
 
   const { data, error, loading } = kanbanData;
-  console.log("data", data, error, loading);
+  const { groupBy } = view;
 
   if (!data) {
     if (loading) {
@@ -103,9 +109,13 @@ function App() {
 
   return (
     <div className="App">
-      <DisplayDropDrown value={view} onChange={onChange} />
+      <DisplayDropDrown value={view} onChange={onChangeView} />
       <div className="kanbanSection">
-        <KanbanBoard tasks={data} onChangeTasks={onChangeData} />
+        <KanbanBoard
+          tasks={data}
+          groupBy={groupBy}
+          onChangeTasks={onChangeData}
+        />
       </div>
     </div>
   );

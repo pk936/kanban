@@ -17,7 +17,7 @@ function sortBy(data, property) {
   return data.sort((a, b) => a[property].localeCompare(b[property]));
 }
 
-function sortTicketsInGroups(data, property) {
+export function sortTicketsInGroups(data, property) {
   let obj = {};
   for (const key in data) {
     if (Object.hasOwnProperty.call(data, key)) {
