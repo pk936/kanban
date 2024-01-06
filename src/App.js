@@ -14,7 +14,7 @@ function App() {
   });
   const initialResponseData = useRef();
 
-  async function fetchData(params) {
+  async function fetchData() {
     setKanbanData({ ...initialData, loading: true });
 
     try {
@@ -27,34 +27,43 @@ function App() {
       }
 
       const jsonData = await response.json();
+
+      // add user name on each ticket
       const ticketsWithUsername = jsonData.tickets.map((ticket) => {
         const user = jsonData.users.find((user) => user.id === ticket.userId);
         return { ...ticket, userName: user ? user.name : "Unknown User" };
       });
 
-      const { groupBy, sortBy } =
-        JSON.parse(localStorage.getItem("view")) || view;
-
-      initialResponseData.current = ticketsWithUsername;
-      const groupedByStatusData = groupSortedTickets(
-        ticketsWithUsername,
-        groupBy
-      );
-
-      setView({ groupBy, sortBy });
-      setKanbanData({
-        data: groupedByStatusData,
-        error: "",
-        loading: false,
-      });
+      setData(ticketsWithUsername);
     } catch (error) {
       console.log(error);
       setKanbanData({ ...initialData, error, loading: false });
     }
   }
 
+  // set final data from api call or localstoraage
+  function setData(data) {
+    const { groupBy, sortBy } =
+      JSON.parse(localStorage.getItem("view")) || view;
+
+    initialResponseData.current = data;
+    const groupedByStatusData = groupSortedTickets(data, groupBy, sortBy);
+
+    setView({ groupBy, sortBy });
+    setKanbanData({
+      data: groupedByStatusData,
+      error: "",
+      loading: false,
+    });
+  }
+
   useEffect(() => {
-    fetchData();
+    let data = JSON.parse(localStorage.getItem("kanban"));
+    if (data) {
+      setData(data);
+    } else {
+      fetchData();
+    }
   }, []);
 
   function onChangeView(e) {
@@ -90,7 +99,10 @@ function App() {
       data: displayData,
     });
 
-    initialResponseData.current = Object.values(data).flat();
+    const flatData = Object.values(data).flat();
+    initialResponseData.current = flatData;
+
+    localStorage.setItem("kanban", JSON.stringify(flatData));
   }
 
   const { data, error, loading } = kanbanData;
