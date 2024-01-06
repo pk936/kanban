@@ -35,10 +35,20 @@ export default function Card({ groupBy, onDragStart, task, type }) {
       onDragStart={(e) => onDragStart(e, task, type)}
     >
       <div className="flex justify-between align-center">
-        <h5>{id}</h5>
+        <p className="taskId">{id}</p>
         {groupBy !== "userName" && <Avatar userName={userName} />}
       </div>
-      <h5 className="title">{title}</h5>
+      <div className="flex gap-2">
+        {groupBy !== "status" && (
+          <span
+            className="material-icons"
+            style={{ color: "#aaa", fontSize: 16 }}
+          >
+            motion_photos_on
+          </span>
+        )}
+        <h5 className="title">{title}</h5>
+      </div>
       <div className="flex gap-2">
         {groupBy !== "priority" && (
           <div className="outlined_box">

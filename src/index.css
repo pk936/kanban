@@ -116,10 +116,16 @@ code {
 }
 
 .card .title {
-  color: #26282e;
+  color: #26282ed1;
   font-weight: bold;
   text-align: left;
   margin: 0px 0 20px 0;
+}
+
+.card .taskId {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .card h5 {
@@ -168,7 +174,7 @@ code {
 }
 
 .card .outlined_box .tags {
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .card .status {
