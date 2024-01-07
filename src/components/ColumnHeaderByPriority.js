@@ -11,24 +11,24 @@ export default function ColumnHeaderByPriority({ id, totalTasks }) {
       label = "No Priority";
       break;
     case 1:
-      color = "orange";
-      icon = "report";
-      label = "Urgent";
+      color = "#777";
+      icon = "signal_cellular_null";
+      label = "Low";
       break;
     case 2:
-      color = "#777";
-      icon = "signal_cellular_4_bar";
-      label = "High";
-      break;
-    case 3:
       color = "#ddd";
       icon = "network_cell";
       label = "Medium";
       break;
-    case 4:
+    case 3:
       color = "#777";
-      icon = "signal_cellular_null";
-      label = "Low";
+      icon = "signal_cellular_4_bar";
+      label = "High";
+      break;
+    case 4:
+      color = "orange";
+      icon = "report";
+      label = "Urgent";
       break;
   }
 

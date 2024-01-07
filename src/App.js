@@ -55,6 +55,12 @@ function App() {
   function getColumnLabels(array, property) {
     const uniqueValues = new Set();
     array.forEach((item) => uniqueValues.add(item[property]));
+
+    if (property === "priority") {
+      // sorting in order: 0 4 3 2 1
+      const [firstItem, ...rest] = [...uniqueValues].sort();
+      return [firstItem, ...rest.sort((a, b) => b - a)];
+    }
     return [...uniqueValues];
   }
 
